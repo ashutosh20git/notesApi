@@ -1,4 +1,3 @@
-version: '3.8'
 
 services:
   app:
@@ -6,7 +5,7 @@ services:
     ports:
       - "5000:5000"
     depends_on:
-      - notesdb
+      - db
     environment:
       - PORT=5000
       - DB_HOST=db
@@ -23,6 +22,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      -notes_db:/var/lib/postgresql/data
+      - notes_db:/var/lib/postgresql/data
+      - .src/models/init.sql:/docker-entrypoint-initdb.d/init.sql
 volumes:
  notes_db:
